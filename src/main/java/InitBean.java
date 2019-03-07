@@ -1,4 +1,5 @@
 import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -7,6 +8,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
 @Startup
+@Singleton
 public class InitBean {
 
     private static InitBean initBean;
@@ -37,5 +39,6 @@ public class InitBean {
                 .skip(1)
                 .map(a -> new Surname(a,Gender.FEMALE))
                 .forEach(em::persist);
+        em.flush();
     }
 }
